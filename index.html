@@ -13,27 +13,20 @@
         #qrCode {
             margin-top: 20px;
         }
-        input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            margin: 20px 0;
-        }
     </style>
 </head>
 <body>
     <h1>QR Code Generator</h1>
-    <input type="text" id="dataInput" placeholder="Enter data to generate QR code">
-    <button onclick="generateQR()">Generate QR Code</button>
     <div id="qrCode"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
     <script>
-        function generateQR() {
-            const data = document.getElementById("dataInput").value;
-            if (!data) {
-                alert("No data provided");
-                return;
-            }
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function generateQR(data) {
             const qrCodeElement = document.getElementById("qrCode");
             qrCodeElement.innerHTML = "";
             QRCode.toCanvas(qrCodeElement, data, {
@@ -47,6 +40,13 @@
                 if (error) console.error(error);
                 console.log('QR code generated!');
             });
+        }
+
+        const data = getQueryParam("api");
+        if (data) {
+            generateQR(data);
+        } else {
+            document.getElementById("qrCode").innerHTML = "No data provided.";
         }
     </script>
 </body>
