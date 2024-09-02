@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <div id="qrCode"></div>
+    <canvas id="qrCode"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
     <script>
@@ -29,9 +29,8 @@
         }
 
         function generateQR(data) {
-            const qrCodeElement = document.getElementById("qrCode");
-            qrCodeElement.innerHTML = "";
-            QRCode.toCanvas(qrCodeElement, data, {
+            const canvas = document.getElementById("qrCode");
+            QRCode.toCanvas(canvas, data, {
                 width: 400,
                 margin: 1,
                 color: {
